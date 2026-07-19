@@ -1,0 +1,156 @@
+﻿@page "/werkwijze"
+<PageTitle>Werkwijze</PageTitle>
+
+<!-- Main Content -->
+<section class="werkwijze-section">
+    <div class="container">
+       
+        <h2>Hoe wij werken</h2>
+        <p class="intro">
+            Bij Naast Elkaar Zorg staat de cliënt centraal. Wij geloven dat iedere persoon uniek is en daarom bieden wij begeleiding die aansluit bij de persoonlijke wensen, mogelijkheden en doelen. Onze werkwijze is gebaseerd op gelijkwaardigheid, vertrouwen, respect en samenwerking. Samen werken we aan een veilige, stabiele en zo zelfstandig mogelijke toekomst.
+        </p>
+
+        <div class="werkwijze-grid">
+            <div class="werkwijze-card">
+                <h3>🏠 Kennismaking &amp; Intake</h3>
+                <p>De begeleiding begint met een persoonlijk kennismakingsgesprek. Tijdens de intake nemen wij de tijd om de cliënt, en waar passend het netwerk, goed te leren kennen. We bespreken de hulpvraag, wensen, mogelijkheden en doelen. Zo leggen we samen een sterke basis voor een succesvolle begeleiding.</p>
+            </div>
+            <div class="werkwijze-card">
+                <h3>📋 Persoonlijk Begeleidingsplan</h3>
+                <p>Op basis van de intake stellen wij samen met de cliënt een persoonlijk begeleidingsplan op. Hierin leggen we de doelen, afspraken en de benodigde ondersteuning vast. Het begeleidingsplan sluit aan bij de eigen mogelijkheden en wordt regelmatig geëvalueerd en waar nodig aangepast.</p>
+            </div>
+            <div class="werkwijze-card">
+                <h3>🌱 Begeleiding op Maat</h3>
+                <p>Iedere cliënt ontvangt begeleiding die past bij zijn of haar situatie. Dit kan bestaan uit ondersteuning bij zelfstandig wonen, persoonlijke ontwikkeling, school of werk, dagstructuur, sociale vaardigheden, financiën of andere leefgebieden. Wij stimuleren eigen regie en ondersteunen waar dat nodig is.</p>
+            </div>
+            <div class="werkwijze-card">
+                <h3>👥 Samenwerking &amp; Communicatie</h3>
+                <p>Goede begeleiding bieden we samen. Daarom onderhouden wij korte lijnen met ouders of verzorgers (waar passend), gemeenten, scholen, huisartsen, behandelaren en andere betrokken professionals. Open communicatie en duidelijke afspraken vormen de basis van onze samenwerking.</p>
+            </div>
+            <div class="werkwijze-card">
+                <h3>📊 Evaluatie &amp; Ontwikkeling</h3>
+                <p>Ontwikkeling is een doorlopend proces. Daarom evalueren wij regelmatig samen met de cliënt de voortgang van de begeleiding. We bespreken behaalde doelen, nieuwe wensen en eventuele veranderingen in de situatie, zodat de begeleiding blijft aansluiten bij de behoeften van de cliënt.</p>
+            </div>
+            <div class="werkwijze-card">
+                <h3>🏡 Zelfstandig Verder</h3>
+                <p>Ons doel is dat cliënten zoveel mogelijk zelf de regie over hun leven voeren. Wanneer doelen zijn bereikt en minder ondersteuning nodig is, begeleiden wij de overgang naar meer zelfstandigheid. Ook in deze fase blijven wij betrokken en zorgen we voor een zorgvuldige afbouw van de begeleiding.</p>
+            </div>
+        </div>
+
+        <div class="cta-center">
+            <a href="aanmelden" class="cta-button">Maak een afspraak voor een kennismaking</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Hero (if you uncomment it) */
+    .hero-section {
+        height: 100vh;
+        min-height: 600px;
+        background-image: url('/background-hero.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        text-align: center;
+    }
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.45);
+    }
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+    .hero-content h1 {
+        font-size: 3.2rem;
+        margin-bottom: 15px;
+    }
+    .subtitle {
+        font-size: 1.45rem;
+        margin-bottom: 30px;
+    }
+
+    /* Werkwijze Section */
+    .werkwijze-section {
+        padding: 100px 20px;
+        background-color: #F8F9FA;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    h2 {
+        color: #1E3A8A;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
+    .intro {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #444;
+        max-width: 800px;
+        margin: 0 auto 60px;
+        line-height: 1.7;
+    }
+    .werkwijze-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 30px;
+    }
+    .werkwijze-card {
+        background: white;
+        padding: 35px 30px;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+        transition: all 0.3s ease;
+    }
+    .werkwijze-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    .werkwijze-card h3 {
+        color: #1E3A8A;
+        margin-bottom: 18px;
+        font-size: 1.35rem;
+    }
+    .werkwijze-card p {
+        color: #555;
+        line-height: 1.65;
+    }
+    .cta-center {
+        text-align: center;
+        margin-top: 70px;
+    }
+    .cta-button {
+        display: inline-block;
+        background-color: #1E88E5;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    .cta-button:hover {
+        background-color: #0D47A1;
+        transform: translateY(-3px);
+    }
+    /* Responsive */
+    .media (max-width: 768px) {
+        .hero-content h1 { font-size: 2.4rem; }
+        .subtitle { font-size: 1.2rem; }
+        .werkwijze-grid { grid-template-columns: 1fr; }
+    }
+</style>

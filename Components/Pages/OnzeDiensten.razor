@@ -1,0 +1,193 @@
+﻿@page "/onzediensten"
+<PageTitle>Onze Diensten</PageTitle>
+
+<!-- Services Content -->
+<section class="services-section">
+    <div class="container">
+        <div class="service-item">
+            <div class="service-text">
+                <h3>Wat Wij Bieden</h3>
+                <p>Bij Naast Elkaar Zorg bieden wij professionele begeleiding aan volwassenen en jongeren. Onze begeleiding sluit aan bij de wensen, mogelijkheden en doelen van iedere cliënt. Wij geloven in gelijkwaardigheid, persoonlijke aandacht en het versterken van de zelfredzaamheid, zodat iedereen zich veilig voelt en zich optimaal kan ontwikkelen.</p>
+            </div>
+        </div>
+        <div class="service-item">
+            <div class="service-text">
+                <h3>Persoonlijke Begeleiding</h3>
+                <p>Iedere cliënt is uniek. Daarom bieden wij begeleiding op maat, afgestemd op de persoonlijke situatie, behoeften en ontwikkeldoelen. Samen werken we aan zelfstandigheid, zelfvertrouwen en een stabiele toekomst.</p>
+            </div>
+        </div>
+
+        <div class="service-item reverse">
+            <div class="service-text">
+                <h3>Wonen met Begeleiding</h3>
+                <p>Naast Elkaar Zorg biedt kleinschalig begeleid wonen in een veilige en prettige woonsetting. Iedere bewoner beschikt over een eigen kamer en krijgt de ondersteuning die nodig is om zo zelfstandig mogelijk te wonen. Eigen regie, privacy en respect staan hierbij centraal.</p>
+            </div>
+        </div>
+
+        <div class="service-item">
+            <div class="service-text">
+                <h3>Dagbesteding, School & Werk</h3>
+                <p>Wij ondersteunen cliënten en jongeren bij het vinden en behouden van een passende daginvulling. Dit kan bestaan uit onderwijs, werk, vrijwilligerswerk, dagbesteding of andere activiteiten die bijdragen aan persoonlijke ontwikkeling en participatie in de samenleving.</p>
+            </div>
+        </div>
+
+        <div class="service-item reverse">
+            <div class="service-text">
+                <h3>Zorg & Ondersteuning</h3>
+                <p>Waar nodig ondersteunen wij bij praktische zaken, medicatie, gezondheidsvragen en het coördineren van zorg. Daarbij werken wij nauw samen met huisartsen, behandelaren, scholen, gemeenten en andere betrokken organisaties.</p>
+            </div>
+        </div>
+
+        <div class="service-item">
+            <div class="service-text">
+                <h3>Samenwerking met Behandelaren en Netwerk</h3>
+                <p>Goede zorg bieden we samen. Daarom werken wij intensief samen met ouders of verzorgers (waar passend), behandelaren, gemeenten, scholen en andere zorgprofessionals. Zo zorgen we voor een gezamenlijke aanpak die aansluit bij de behoeften van de cliënt.</p>
+            </div>
+        </div>
+
+        <div class="service-item reverse">
+            <div class="service-text">
+                <h3>Vrije Tijd & Persoonlijke Ontwikkeling</h3>
+                <p>Een gezonde balans tussen inspanning en ontspanning is belangrijk. Daarom stimuleren wij deelname aan sport, creatieve activiteiten, sociale contacten en andere vormen van zinvolle vrijetijdsbesteding die bijdragen aan welzijn en persoonlijke groei.</p>
+            </div>
+        </div>
+
+        <div class="service-item reverse">
+            <div class="service-text">
+                <h3>Voor Wie</h3>
+                <p>Naast Elkaar Zorg biedt begeleiding en begeleid wonen aan cliënten met een Wlz-, Wmo- of Jeugdwet-indicatie. Wij ondersteunen jongeren en volwassenen met een ondersteuningsvraag op verschillende leefgebieden en stemmen onze begeleiding af op de individuele situatie.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Kennis maken?</h1>
+        <p class="subtitle">Ontdek hoe wij kunnen helpen met onze persoonlijke begeleiding en ondersteuning.</p>
+        <a href="aanmelden" class="cta-button">Aanmelden</a>
+    </div>
+</section>
+
+<style>
+    /* Hero Section */
+    .hero-section {
+        height: 30vh;
+        background-image: url('/background-hero.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        text-align: center;
+    }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.45);
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+        }
+
+    .services-section {
+        padding: 80px 20px;
+        background-color: #F8F9FA;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .service-item {
+        display: flex;
+        align-items: center;
+        gap: 80px;
+        margin-bottom: 90px;
+        flex-wrap: wrap;
+    }
+
+    .service-item.reverse {
+        flex-direction: row-reverse;
+    }
+
+    .service-text {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .service-text h3 {
+        color: #1E3A8A;
+        font-size: 1.65rem;
+        margin-bottom: 18px;
+    }
+
+    .service-text p {
+        font-size: 1.1rem;
+        line-height: 1.75;
+        color: #444;
+    }
+
+    /* Optional: Add background color to even items */
+    .service-item:nth-child(even) {
+        background-color: #E3F2FD;
+        padding: 60px 50px;
+        border-radius: 20px;
+        margin: 0 auto 80px;
+        max-width: 1100px;
+    }
+
+    .cta-center {
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background-color: #1E88E5;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+        background-color: #0D47A1;
+        transform: translateY(-3px);
+    }
+
+    .media (max-width: 768px) {
+        .hero-section { height: 55vh; }
+        .hero-content h1 { font-size: 2.3rem; }
+        .service-item, .service-item.reverse {
+            flex-direction: column;
+            text-align: center;
+            gap: 30px;
+        }
+        .service-item:nth-child(even) {
+            padding: 40px 25px;
+        }
+    }
+</style>

@@ -1,0 +1,48 @@
+﻿@inherits LayoutComponentBase
+
+<div class="layout">
+    <header>
+        <NavMenu />
+    </header>
+
+    <main>
+        @Body
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-col">
+                <h5>Product</h5>
+                <NavLink href="/">Home</NavLink>
+                <NavLink href="overons">Over ons</NavLink>
+                <NavLink href="onzediensten">Onze diensten</NavLink>
+                <NavLink href="werkwijze">Werk wijze</NavLink>
+            </div>
+
+            <div class="footer-col">
+                <h5>Company</h5>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Careers</a>
+            </div>
+
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © @DateTime.Now.Year BlazorApp1
+        </div>
+    </footer>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

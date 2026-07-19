@@ -1,0 +1,199 @@
+﻿@page "/contact"
+<PageTitle>Contact</PageTitle>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Contact</h1>
+        <p class="subtitle">Wij staan voor u klaar</p>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="contact-info-section">
+    <div class="container">
+        <div class="contact-grid">
+            
+            <!-- Left: Contact Details -->
+            <div class="contact-details">
+                <h2>Neem contact met ons op</h2>
+                
+                <div class="info-item">
+                    <strong>Adres</strong>
+                    <p>Straatnaam 123<br>
+                       1234 AB Plaatsnaam</p>
+                </div>
+
+                <div class="info-item">
+                    <strong>Telefoon</strong>
+                    <p><a href="tel:+31612345678">06 - 12 34 56 78</a></p>
+                </div>
+
+                <div class="info-item">
+                    <strong>Email</strong>
+                    <p><a href="mailto:info@jouwzorgcentrum.nl">info@jouwzorgcentrum.nl</a></p>
+                </div>
+
+                <div class="info-item">
+                    <strong>Bezoekadres &amp; Postadres</strong>
+                    <p>Het bezoekadres is hetzelfde als het postadres.</p>
+                </div>
+            </div>
+
+            <!-- Right: Google Maps -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE_HERE" 
+                    width="100%" 
+                    height="420" 
+                    style="border:0; border-radius: 16px;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form -->
+<section class="contact-form-section">
+    <div class="container">
+        <h2>Stuur ons een bericht</h2>
+        <p class="form-intro">Vul het formulier in en wij nemen zo snel mogelijk contact met u op.</p>
+        
+        <!-- You can later replace this with your existing Aanmelden form if you want -->
+        <a href="aanmelden" class="cta-button">Ga naar Aanmeldformulier →</a>
+    </div>
+</section>
+
+<style>
+    /* Hero Section */
+    .hero-section {
+        height: 30vh;
+        background-image: url('/background-hero.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        text-align: center;
+    }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.45);
+        }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 20px;
+    }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+        }
+
+    .subtitle {
+        font-size: 1.4rem;
+    }
+
+    .contact-info-section, .contact-form-section {
+        padding: 90px 20px;
+    }
+
+    .contact-info-section {
+        background-color: #E3F2FD;
+    }
+
+    .contact-form-section {
+        background-color: #F8F9FA;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 70px;
+        align-items: start;
+    }
+
+    .info-item {
+        margin-bottom: 28px;
+    }
+
+    .info-item strong {
+        display: block;
+        color: #1E3A8A;
+        font-size: 1.1rem;
+        margin-bottom: 6px;
+    }
+
+    .info-item a {
+        color: #1E88E5;
+        text-decoration: none;
+    }
+
+    .info-item a:hover {
+        text-decoration: underline;
+    }
+
+    .map-container {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #1E3A8A;
+        margin-bottom: 20px;
+        font-size: 2.4rem;
+    }
+
+    .form-intro {
+        text-align: center;
+        font-size: 1.15rem;
+        color: #555;
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background-color: #1E88E5;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+        background-color: #0D47A1;
+        transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    .media (max-width: 768px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 50px;
+        }
+        .hero-section { height: 50vh; }
+    }
+</style>

@@ -1,0 +1,9 @@
+# .NET & Blazor
+bin/
+obj/
+.vs/
+*.user
+CareHomeDB.db
+*.db-shm
+*.db-wal
+Migrations/*.designer.cs

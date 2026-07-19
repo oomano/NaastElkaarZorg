@@ -1,0 +1,101 @@
+﻿<nav>
+    <div class="nav-container">
+       
+        <!-- Logo -->
+        <a href="/" class="logo-link">
+            <img src="logo.jpeg" alt="Care Home Logo" class="logo">
+        </a>
+
+        <!-- Navigation Links -->
+        <ul>
+            <li><NavLink href="/" Match="NavLinkMatch.All">Home</NavLink></li>
+            <li><NavLink href="overons">Over ons</NavLink></li>
+            <li><NavLink href="onzediensten">Onze diensten</NavLink></li>
+            <li><NavLink href="werkwijze">Werk wijze</NavLink></li>
+            <li><NavLink href="contact">Contact</NavLink></li>
+            <li><NavLink href="aanmelden">Aanmelden</NavLink></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    nav {
+        width: 100%;
+        background-color: #E3F2FD;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);     /* Nice modern drop shadow */
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(30, 136, 229, 0.15);
+    }
+
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    /* Logo */
+    .logo-link {
+        display: block;
+        padding: 10px 0;
+    }
+
+    .logo {
+        height: 70px;
+        width: auto;
+        max-width: 180px;
+        display: block;
+    }
+
+    /* Navigation List */
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+    ul li a,
+    ul li NavLink {
+        display: block;
+        color: #1E3A8A;
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 500;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+    }
+
+    /* Hover Effect */
+    ul li a:hover,
+    ul li NavLink:hover {
+        background-color: rgba(30, 136, 229, 0.12);
+        color: #0D47A1;
+    }
+
+    /* Active Link */
+    ul li a.active,
+    ul li NavLink.active {
+        background-color: rgba(13, 71, 161, 0.18);
+        color: #0D47A1;
+        font-weight: 600;
+        box-shadow: 0 3px 8px rgba(13, 71, 161, 0.15);
+    }
+
+    /* Responsive */
+    .media (max-width: 768px) {
+        .logo {
+            height: 55px;
+        }
+       
+        ul li a,
+        ul li NavLink {
+            padding: 16px 12px;
+            font-size: 0.95rem;
+        }
+    }
+</style>

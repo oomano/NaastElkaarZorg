@@ -1,0 +1,184 @@
+﻿@layout LoginLayout
+@page "/login"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+@code {
+    private LoginModel loginModel = new();
+    private bool isLoading = false;
+    private bool showPassword = false;
+    private string errorMessage = "";
+
+    private async Task HandleLogin()
+    {
+        if (string.IsNullOrWhiteSpace(loginModel.Email) || string.IsNullOrWhiteSpace(loginModel.Password))
+        {
+            errorMessage = "Email and password are required.";
+            return;
+        }
+
+        isLoading = true;
+        errorMessage = "";
+
+        await Task.Delay(1000); // Simulate API call delay
+
+        if (loginModel.Email == "admin" && loginModel.Password == "123")
+        {
+            Navigation.NavigateTo("/app");
+        }
+        else
+        {
+            errorMessage = "Invalid email or password.";
+        }
+
+        isLoading = false;
+    }
+
+    private class LoginModel
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #121212, #1f1f1f);
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        width: 400px;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 14px;
+        color: #bbb;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .form-control {
+        width: 90%;
+        padding: 12px;
+        margin: 12px 0;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        font-size: 16px;
+        color: white;
+        outline: none;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+    .password-container {
+        position: relative;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .password-container input {
+            width: 100%;
+            text-align: center;
+        }
+
+    .toggle-password {
+        cursor: pointer;
+        position: absolute;
+        right: 15px;
+        font-size: 20px;
+        color: #aaa;
+        transition: color 0.3s;
+    }
+
+        .toggle-password:hover {
+            color: white;
+        }
+
+    .btn-login {
+        width: 90%;
+        padding: 12px;
+        background: linear-gradient(90deg, #007bff, #00d4ff);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+        .btn-login:hover {
+            background: linear-gradient(90deg, #005ecb, #0096c7);
+            transform: scale(1.05);
+        }
+
+        .btn-login:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+    .error-message {
+        color: #ff5c5c;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="login-container">
+    <h2>Welcome Back</h2>
+    <p>Login to access your dashboard</p>
+
+    <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email"
+               @bind="loginModel.Email" required>
+    </div>
+
+    <div class="form-group">
+        <input type="@(showPassword ? "text" : "password")" class="form-control" placeholder="Password"
+               @bind="loginModel.Password" required>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="error-message">@errorMessage</p>
+    }
+
+    <button class="btn-login" @onclick="HandleLogin" disabled="@isLoading">
+        @(isLoading ? "Logging in..." : "Login")
+    </button>
+</div>

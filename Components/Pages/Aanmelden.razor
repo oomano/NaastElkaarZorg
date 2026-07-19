@@ -1,0 +1,189 @@
+﻿@page "/aanmelden"
+@using BlazorApp1.Models
+@using BlazorApp1.Services
+@rendermode InteractiveServer
+@inject AanmeldenService AanmeldenService
+<PageTitle>Aanmelden - Zorgcentrum</PageTitle>
+<section class="aanmelden-section">
+    <div class="container">
+        <div class="form-card">
+            <h1>Aanmelden</h1>
+            <p class="lead">Vul het formulier in en wij nemen zo snel mogelijk contact met u op.</p>
+
+            <EditForm Model="formModel" OnSubmit="HandleSubmit" FormName="aanmeldenForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Uw Naam</label>
+                        <InputText @bind-Value="formModel.Naam" class="form-input" placeholder="Volledige naam" />
+                    </div>
+                    <div class="form-group">
+                        <label>Telefoonnummer</label>
+                        <InputText @bind-Value="formModel.Telefoon" class="form-input" placeholder="06 - 12 34 56 78" />
+                    </div>
+                    <div class="form-group">
+                        <label>Emailadres</label>
+                        <InputText @bind-Value="formModel.Email" type="email" class="form-input" placeholder="uw@email.nl" />
+                    </div>
+                    <div class="form-group">
+                        <label>Naam van de cliënt</label>
+                        <InputText @bind-Value="formModel.ClientNaam" class="form-input" placeholder="Naam van uw familielid" />
+                    </div>
+                    <div class="form-group">
+                        <label>Geboortedatum cliënt</label>
+                        <InputDate @bind-Value="formModel.ClientGeboortedatum" class="form-input" />
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Uw relatie tot de cliënt</label>
+                        <InputSelect @bind-Value="formModel.Relatie" class="form-input">
+                            <option value="">Kies een optie...</option>
+                            <option value="Ouder">Ouder</option>
+                            <option value="Broer/Zus">Broer / Zus</option>
+                            <option value="Kind">Kind</option>
+                            <option value="Partner">Partner</option>
+                            <option value="Voogd">Voogd / Wettelijk vertegenwoordiger</option>
+                            <option value="Anders">Anders</option>
+                        </InputSelect>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Bericht / Vragen</label>
+                        <InputTextArea @bind-Value="formModel.Bericht" class="form-input textarea"
+                                       placeholder="Vertel ons meer over de situatie..." rows="6" />
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" disabled="@isSubmitting">
+                    @if (isSubmitting)
+                    {
+                        <span>Bezig met verzenden...</span>
+                    }
+                    else
+                    {
+                        <span>Verstuur Aanmelding</span>
+                    }
+                </button>
+            </EditForm>
+
+            @if (showSuccess)
+            {
+                <div class="success-message">
+                    ✅ Bedankt! Uw aanmelding is succesvol ontvangen.<br>
+                    Wij nemen zo spoedig mogelijk contact met u op.
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private AanmeldenModel formModel = new();
+    private bool isSubmitting = false;
+    private bool showSuccess = false;
+
+    private async Task HandleSubmit()
+    {
+        isSubmitting = true;
+
+        try
+        {
+            await AanmeldenService.SaveAanmeldingAsync(formModel);
+            showSuccess = true;
+            formModel = new AanmeldenModel(); // Reset form
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving: {ex.Message}");
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}
+}
+
+<style>
+    .success-message {
+        margin-top: 25px;
+        padding: 20px;
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 500;
+    }
+    .aanmelden-section {
+        background-color: #E3F2FD;
+        min-height: 100vh;
+        padding: 80px 20px;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    .form-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        padding: 50px 40px;
+    }
+
+    h1 { color: #1E3A8A; text-align: center; margin-bottom: 8px; }
+    .lead { text-align: center; color: #555; font-size: 1.15rem; margin-bottom: 40px; }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group { display: flex; flex-direction: column; }
+    .full-width { grid-column: 1 / -1; }
+
+    label { font-weight: 600; color: #1E3A8A; margin-bottom: 6px; }
+
+    .form-input, .textarea {
+        padding: 14px 16px;
+        border: 2px solid #E0E0E0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus, .textarea:focus {
+        border-color: #1E88E5;
+        box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+    }
+
+    .textarea { resize: vertical; min-height: 130px; }
+
+    .submit-button {
+        width: 100%;
+        margin-top: 30px;
+        padding: 16px;
+        background-color: #1E88E5;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background-color: #0D47A1;
+        transform: translateY(-3px);
+    }
+
+    .privacy-note {
+        text-align: center;
+        font-size: 0.95rem;
+        color: #666;
+        margin-top: 25px;
+    }
+
+    .media (max-width: 768px) {
+        .form-grid { grid-template-columns: 1fr; }
+        .form-card { padding: 35px 25px; }
+    }
+</style>

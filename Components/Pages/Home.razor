@@ -1,4 +1,6 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
 <PageTitle>Home</PageTitle>
 
 <!-- 1. Hero - Full Background Image -->
@@ -82,15 +84,20 @@
         <div class="contact-content">
             <div class="contact-info">
                 <h3>Onze Locatie</h3>
-                <p><strong>Adres:</strong> Straatnaam 123, 1234 AB Plaatsnaam</p>
-                <p><strong>Telefoon:</strong> <a href="tel:+31612345678">06 - 12 34 56 78</a></p>
-                <p><strong>Email:</strong> <a href="mailto:info@jouwzorgcentrum.nl">info@jouwzorgcentrum.nl</a></p>
+                <p><strong>Adres:</strong> Eusebiusbuitensingel 16, 6828 HV Arnhem</p>
+                <p><strong>Telefoon:</strong> <a href="tel:+31624842980">06 - 24842980</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@naastelkaarzorg.nl">info@naastelkaarzorg.nl</a></p>
                 
-                <a href="contact" class="map-button">Bekijk op de kaart →</a>
+                @* <a href="contact" class="map-button">Bekijk op de kaart →</a> *@
             </div>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=YOUR_EMBED_LINK_HERE" 
-                        width="100%" height="420" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps?q=Eusebiusbuitensingel+16,+6828+HV+Arnhem&output=embed"
+                        width="100%"
+                        height="420"
+                        style="border:0; border-radius:16px;"
+                        allowfullscreen=""
+                        loading="lazy">
+                </iframe>
             </div>
         </div>
     </div>
@@ -262,3 +269,12 @@
         .contact-content { grid-template-columns: 1fr; gap: 40px; }
     }
 </style>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
+    }
+}

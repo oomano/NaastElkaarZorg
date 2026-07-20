@@ -1,5 +1,6 @@
 ﻿@page "/overons"
 @rendermode InteractiveServer
+@inject IJSRuntime JS
 <PageTitle>Over Ons</PageTitle>
 
 <!-- Who We Are -->
@@ -214,3 +215,13 @@
         .content-grid { grid-template-columns: 1fr; }
     }
 </style>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
+    }
+}

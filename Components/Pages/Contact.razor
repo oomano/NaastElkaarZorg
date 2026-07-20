@@ -1,6 +1,7 @@
 ﻿@page "/contact"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
 <PageTitle>Contact</PageTitle>
-
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
@@ -20,18 +21,19 @@
                 
                 <div class="info-item">
                     <strong>Adres</strong>
-                    <p>Straatnaam 123<br>
-                       1234 AB Plaatsnaam</p>
+                    <p>Eusebiusbuitensingel 16<br>
+                        6828 HV Arnhem
+                    </p>
                 </div>
 
                 <div class="info-item">
                     <strong>Telefoon</strong>
-                    <p><a href="tel:+31612345678">06 - 12 34 56 78</a></p>
+                    <p><a href="tel:+31624842980">06 - 24842980</a></p>
                 </div>
 
                 <div class="info-item">
                     <strong>Email</strong>
-                    <p><a href="mailto:info@jouwzorgcentrum.nl">info@jouwzorgcentrum.nl</a></p>
+                    <p><a href="mailto:info@naastelkaarzorg.nl">info@naastelkaarzorg.nl</a></p>
                 </div>
 
                 <div class="info-item">
@@ -42,13 +44,12 @@
 
             <!-- Right: Google Maps -->
             <div class="map-container">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE_HERE" 
-                    width="100%" 
-                    height="420" 
-                    style="border:0; border-radius: 16px;" 
-                    allowfullscreen="" 
-                    loading="lazy">
+                <iframe src="https://www.google.com/maps?q=Eusebiusbuitensingel+16,+6828+HV+Arnhem&output=embed"
+                        width="100%"
+                        height="420"
+                        style="border:0; border-radius:16px;"
+                        allowfullscreen=""
+                        loading="lazy">
                 </iframe>
             </div>
         </div>
@@ -197,3 +198,12 @@
         .hero-section { height: 50vh; }
     }
 </style>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
+    }
+}

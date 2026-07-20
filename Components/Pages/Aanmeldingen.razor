@@ -1,0 +1,167 @@
+﻿@page "/admin/aanmeldingen"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
+@using BlazorApp1.Models
+@using BlazorApp1.Services
+@inject AanmeldenService AanmeldenService
+
+
+<PageTitle>Aanmeldingen Beheer - Admin</PageTitle>
+
+<h1>Aanmeldingen Beheer</h1>
+
+<button class="btn-add" @onclick="AddNew">+ Nieuwe Aanmelding Toevoegen</button>
+
+@if (aanmeldingen == null)
+{
+    <p>Laden...</p>
+}
+else
+{
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Naam</th>
+                <th>Telefoon</th>
+                <th>Email</th>
+                <th>Cliënt</th>
+                <th>Relatie</th>
+                <th>Bericht</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in aanmeldingen)
+            {
+                <tr>
+                    <td>@item.AanmeldDatum.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@item.Naam</td>
+                    <td>@item.Telefoon</td>
+                    <td>@item.Email</td>
+                    <td>@item.ClientNaam</td>
+                    <td>@item.Relatie</td>
+                    <td>@(item.Bericht?.Length > 60 ? item.Bericht.Substring(0, 60) + "..." : item.Bericht)</td>
+                    <td>
+                        <button class="btn-edit" @onclick="() => Edit(item)">✏️ Bewerken</button>
+                        <button class="btn-delete" @onclick="() => Delete(item)">🗑️ Verwijderen</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Modal -->
+@if (showModal)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <h3>@(isEditing ? "Aanmelding Bewerken" : "Nieuwe Aanmelding Toevoegen")</h3>
+
+            <label>Naam *</label>
+            <InputText @bind-Value="currentItem.Naam" class="form-input" />
+
+            <label>Telefoon *</label>
+            <InputText @bind-Value="currentItem.Telefoon" class="form-input" />
+
+            <label>Email *</label>
+            <InputText @bind-Value="currentItem.Email" class="form-input" />
+
+            <label>Cliënt Naam *</label>
+            <InputText @bind-Value="currentItem.ClientNaam" class="form-input" />
+
+            <label>Relatie</label>
+            <InputText @bind-Value="currentItem.Relatie" class="form-input" />
+
+            <label>Bericht</label>
+            <InputTextArea @bind-Value="currentItem.Bericht" class="form-input" rows="5" />
+
+            <div class="modal-buttons">
+                <button class="btn-save" @onclick="Save">Opslaan</button>
+                <button class="btn-cancel" @onclick="CloseModal">Annuleren</button>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<AanmeldenModel> aanmeldingen = new();
+    private AanmeldenModel currentItem = new();
+    private bool showModal = false;
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        aanmeldingen = await AanmeldenService.GetAllAanmeldingenAsync();
+    }
+
+    private void AddNew()
+    {
+        currentItem = new AanmeldenModel();
+        isEditing = false;
+        showModal = true;
+    }
+
+    private void Edit(AanmeldenModel item)
+    {
+        currentItem = item;
+        isEditing = true;
+        showModal = true;
+    }
+
+    private async Task Save()
+    {
+        if (isEditing)
+            await AanmeldenService.UpdateAanmeldingAsync(currentItem);
+        else
+            await AanmeldenService.SaveAanmeldingAsync(currentItem);
+
+        CloseModal();
+        await LoadData();
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    private async Task Delete(AanmeldenModel item)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Weet je zeker dat je deze aanmelding wilt verwijderen?");
+        if (confirmed)
+        {
+            await AanmeldenService.DeleteAanmeldingAsync(item.Id);
+            await LoadData();
+        }
+    }
+}
+<style>
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+    }
+
+        .admin-table th, .admin-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .admin-table th {
+            background-color: #1E3A8A;
+            color: white;
+        }
+
+        .admin-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+</style>

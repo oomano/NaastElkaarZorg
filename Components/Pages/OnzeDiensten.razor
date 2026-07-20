@@ -1,4 +1,6 @@
 ﻿@page "/onzediensten"
+@rendermode InteractiveServer
+@inject IJSRuntime JS
 <PageTitle>Onze Diensten</PageTitle>
 
 <!-- Services Content -->
@@ -191,3 +193,12 @@
         }
     }
 </style>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("scrollToTop");
+        }
+    }
+}

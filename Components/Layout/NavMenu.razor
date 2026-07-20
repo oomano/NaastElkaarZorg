@@ -7,7 +7,7 @@
         </a>
 
         <!-- Mobile menu button -->
-        <button class="menu-toggle" @onclick="ToggleMenu" aria-label="Toggle navigation">
+        <button type="button" class="menu-toggle" @onclick="ToggleMenu" aria-label="Toggle navigation">
             ☰
         </button>
 
@@ -75,6 +75,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        position: relative;
     }
 
 
@@ -182,6 +184,11 @@
         cursor: pointer;
 
         padding: 5px;
+
+        /* Ensure the button sits above the absolutely-positioned dropdown
+           in the stacking context so mobile tap events always reach it */
+        position: relative;
+        z-index: 10;
     }
 
 

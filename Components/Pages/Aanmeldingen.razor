@@ -8,6 +8,8 @@
 
 <PageTitle>Aanmeldingen Beheer - Admin</PageTitle>
 
+<div class="page-container">
+
 <h1>Aanmeldingen Beheer</h1>
 
 <button class="btn-add" @onclick="AddNew">+ Nieuwe Aanmelding Toevoegen</button>
@@ -18,6 +20,7 @@
 }
 else
 {
+    <div class="table-wrapper">
     <table class="admin-table">
         <thead>
             <tr>
@@ -50,6 +53,7 @@ else
             }
         </tbody>
     </table>
+    </div>
 }
 
 <!-- Modal -->
@@ -84,6 +88,8 @@ else
         </div>
     </div>
 }
+
+</div>
 
 @code {
     private List<AanmeldenModel> aanmeldingen = new();
@@ -142,6 +148,11 @@ else
     }
 }
 <style>
+    .page-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px;
+    }
 
     .admin-table {
         width: 100%;
@@ -164,4 +175,87 @@ else
         .admin-table tr:nth-child(even) {
             background-color: #f8f9fa;
         }
+
+        .admin-table tbody tr:hover {
+            background-color: #e8f0fe;
+        }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 16px;
+        padding: 36px 32px;
+        width: 100%;
+        max-width: 560px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-content h3 { color: #1E3A8A; margin-bottom: 8px; }
+
+    .modal-content label { font-weight: 600; color: #1E3A8A; margin-top: 4px; }
+
+    .form-input {
+        padding: 10px 14px;
+        border: 2px solid #E0E0E0;
+        border-radius: 8px;
+        font-size: 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus { border-color: #1E88E5; outline: none; box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1); }
+
+    .modal-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+    }
+
+    .btn-save, .btn-cancel, .btn-add, .btn-edit, .btn-delete {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+    .btn-save { background-color: #1E88E5; color: white; flex: 1; }
+    .btn-save:hover { background-color: #0D47A1; }
+    .btn-cancel { background-color: #e0e0e0; color: #333; flex: 1; }
+    .btn-cancel:hover { background-color: #bdbdbd; }
+    .btn-add { background-color: #1E88E5; color: white; margin-bottom: 16px; }
+    .btn-add:hover { background-color: #0D47A1; }
+    .btn-edit { background-color: #E3F2FD; color: #1E3A8A; margin-right: 6px; }
+    .btn-delete { background-color: #fff0f0; color: #c62828; }
+
+    .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @@media (max-width: 768px) {
+        h1 { font-size: 1.5rem; }
+        .btn-add { width: 100%; text-align: center; }
+        .admin-table { white-space: nowrap; }
+        .modal-content { padding: 24px 18px; }
+    }
 </style>

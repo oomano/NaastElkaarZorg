@@ -7,9 +7,6 @@
 <section class="hero-section">
     <div class="hero-content">
         <h1>Niet vóór of achter elkaar, maar naast elkaar</h1>
-        <p class="subtitle">
-            
-        </p>
         <div class="hero-buttons">
             <a href="aanmelden" class="cta-button primary">Aanmelden</a>
             <a href="overons" class="cta-button secondary">Meer over ons</a>
@@ -108,7 +105,7 @@
     .hero-section {
         height: 85vh;
         min-height: 650px;
-        background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)), url('/background.jpg');
+        background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)), url('/background.jpg');
         background-position: center;
         background-size: cover;
         display: flex;
@@ -129,12 +126,6 @@
         font-size: 3.4rem;
         line-height: 1.15;
         margin-bottom: 24px;
-    }
-
-    .subtitle {
-        font-size: 1.35rem;
-        line-height: 1.6;
-        margin-bottom: 40px;
     }
 
     .hero-buttons {
@@ -258,15 +249,32 @@
         border: 2px solid #1E3A8A;
     }
 
+    /* White variant for dark hero overlay */
+    .hero-buttons .cta-button.secondary {
+        color: white;
+        border-color: white;
+    }
+
+    .hero-buttons .cta-button.secondary:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-4px);
+    }
+
     .container { max-width: 1200px; margin: 0 auto; }
 
     h2 { color: #1E3A8A; text-align: center; margin-bottom: 40px; font-size: 2.5rem; }
 
     /* Responsive */
-    .media (max-width: 768px) {
-        .hero-content h1 { font-size: 2.6rem; }
-        .split-content { grid-template-columns: 1fr; gap: 40px; }
-        .contact-content { grid-template-columns: 1fr; gap: 40px; }
+    @@media (max-width: 768px) {
+        .hero-content h1 { font-size: 2rem; }
+        .subtitle { font-size: 1.1rem; }
+        .split-section, .services-section, .contact-section { padding: 60px 16px; }
+        .split-content { grid-template-columns: 1fr; gap: 32px; }
+        .split-text h2 { font-size: 1.8rem; }
+        .services-grid { grid-template-columns: 1fr; }
+        .contact-content { grid-template-columns: 1fr; gap: 32px; }
     }
 </style>
 @code {

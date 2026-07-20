@@ -3,7 +3,7 @@
 
         <!-- Logo -->
         <a href="/" class="logo-link">
-            <img src="logo.jpeg" alt="Care Home Logo" class="logo">
+            <img src="logo.jpeg" alt="Naast Elkaar Zorg logo" class="logo">
         </a>
 
         <!-- Mobile menu button -->
@@ -43,7 +43,7 @@
                 </NavLink>
             </li>
 
-            <li>
+            <li class="cta-nav-item">
                 <NavLink href="aanmelden" @onclick="CloseMenu">
                     Aanmelden
                 </NavLink>
@@ -143,6 +143,28 @@
         box-shadow: 0 3px 8px rgba(13, 71, 161, 0.15);
     }
 
+    /* CTA pill for Aanmelden nav link */
+    .cta-nav-item a {
+        background-color: #1E88E5;
+        color: white !important;
+        border-radius: 50px;
+        padding: 10px 22px;
+        font-weight: 600;
+        margin-left: 6px;
+    }
+
+    .cta-nav-item a:hover {
+        background-color: #0D47A1 !important;
+        color: white !important;
+        transform: translateY(-2px);
+    }
+
+    .cta-nav-item a.active {
+        background-color: #0D47A1 !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(30, 136, 229, 0.35);
+    }
+
 
     /* Mobile hamburger */
 
@@ -166,7 +188,7 @@
 
     /* Mobile layout */
 
-    .media (max-width: 768px) {
+    @@media (max-width: 768px) {
 
 
         .logo {

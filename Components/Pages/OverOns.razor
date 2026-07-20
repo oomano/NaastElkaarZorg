@@ -3,6 +3,15 @@
 @inject IJSRuntime JS
 <PageTitle>Over Ons</PageTitle>
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Over Ons</h1>
+        <p class="subtitle">Een warme, veilige en respectvolle woonomgeving</p>
+        <a href="aanmelden" class="cta-button">Maak kennis met ons</a>
+    </div>
+</section>
+
 <!-- Who We Are -->
 <section class="about-section">
     <div class="container">
@@ -81,22 +90,13 @@
         </div>
     </div>
 </section>
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-        <h1>Over Ons</h1>
-        <p class="subtitle">Een warme, veilige en respectvolle woonomgeving</p>
-        <a href="aanmelden" class="cta-button">Maak kennis met ons</a>
-    </div>
-</section>
 <style>
     /* Hero Section */
     .hero-section {
         height: 30vh;
-        background-image: url('/background-hero.jpg');
+        background-image: url('/background.jpg');
         background-position: center;
         background-size: cover;
-        background-attachment: fixed;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -142,20 +142,26 @@
         font-size: 2.4rem;
     }
 
-    .content-grid, .mission-grid {
+    .content-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
+        grid-template-columns: 1fr;
+        gap: 40px;
         align-items: center;
     }
 
-    .mission-grid { grid-template-columns: 1fr; gap: 40px; }
+    .mission-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+    }
 
     .mission-card {
         background: white;
         padding: 40px;
         border-radius: 16px;
         box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        border-left: 4px solid #1E88E5;
     }
 
     .mission-card h3 {
@@ -210,9 +216,13 @@
         transform: translateY(-3px);
     }
 
-    .media (max-width: 768px) {
-        .hero-section { height: 55vh; }
+    @@media (max-width: 768px) {
+        .hero-section { height: 50vh; }
+        .hero-content h1 { font-size: 2rem; }
         .content-grid { grid-template-columns: 1fr; }
+        .about-section, .mission-section, .values-section { padding: 60px 16px; }
+        h2 { font-size: 1.8rem; }
+        .values-grid { grid-template-columns: 1fr; }
     }
 </style>
 

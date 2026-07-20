@@ -11,15 +11,23 @@ main {
 /* FOOTER */
 .footer {
     background: #E3F2FD;
-    color: #ddd;
+    color: #444;
     padding: 40px 20px 20px;
 }
 
 .footer-container {
     display: flex;
-    justify-content: flex-end; /* instead of space-between */
-    gap: 200px; /* control spacing yourself */
+    justify-content: center;
+    gap: 60px;
     flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        gap: 28px;
+        align-items: flex-start;
+    }
 }
 
 .footer-col {

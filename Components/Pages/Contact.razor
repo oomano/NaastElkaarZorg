@@ -62,7 +62,12 @@
         <h2>Stuur ons een bericht</h2>
         <p class="form-intro">Vul het formulier in en wij nemen zo snel mogelijk contact met u op.</p>
         
-        <!-- You can later replace this with your existing Aanmelden form if you want -->
+        <!--
+            TODO (pending scope decision from Omar): Replace the redirect link below with a real
+            inline contact form (name, email, phone, message fields + submit). The copy for the
+            intro text and any field labels also needs approval before implementation.
+            For now this section redirects to the Aanmeldformulier as a temporary placeholder.
+        -->
         <a href="aanmelden" class="cta-button">Ga naar Aanmeldformulier →</a>
     </div>
 </section>
@@ -71,10 +76,9 @@
     /* Hero Section */
     .hero-section {
         height: 30vh;
-        background-image: url('/background-hero.jpg');
+        background-image: url('/background.jpg');
         background-position: center;
         background-size: cover;
-        background-attachment: fixed;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -165,6 +169,11 @@
         font-size: 2.4rem;
     }
 
+    /* Override global h2 centering within the contact details column */
+    .contact-details h2 {
+        text-align: left;
+    }
+
     .form-intro {
         text-align: center;
         font-size: 1.15rem;
@@ -190,12 +199,14 @@
     }
 
     /* Responsive */
-    .media (max-width: 768px) {
+    @@media (max-width: 768px) {
         .contact-grid {
             grid-template-columns: 1fr;
-            gap: 50px;
+            gap: 32px;
         }
-        .hero-section { height: 50vh; }
+        .hero-section { height: 45vh; }
+        .hero-content h1 { font-size: 2rem; }
+        .contact-info-section, .contact-form-section { padding: 60px 16px; }
     }
 </style>
 @code {

@@ -1,50 +1,51 @@
 ﻿<nav>
     <div class="nav-container">
 
+        <!-- Hidden checkbox: state carrier for mobile menu toggle — no JS/SignalR needed -->
+        <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+
         <!-- Logo -->
         <a href="/" class="logo-link">
             <img src="logo.jpeg" alt="Naast Elkaar Zorg logo" class="logo">
         </a>
 
-        <!-- Mobile menu button -->
-        <button type="button" class="menu-toggle" @onclick="ToggleMenu" aria-label="Toggle navigation">
-            ☰
-        </button>
+        <!-- Mobile hamburger label (replaces button — clicking label toggles checkbox via for/id binding) -->
+        <label for="nav-toggle" class="menu-toggle" aria-label="Toggle navigation">☰</label>
 
         <!-- Navigation Links -->
-        <ul class="@(_menuOpen ? "open" : "")">
+        <ul>
             <li>
-                <NavLink href="/" Match="NavLinkMatch.All" @onclick="CloseMenu">
+                <NavLink href="/" Match="NavLinkMatch.All">
                     Home
                 </NavLink>
             </li>
 
             <li>
-                <NavLink href="overons" @onclick="CloseMenu">
+                <NavLink href="overons">
                     Over ons
                 </NavLink>
             </li>
 
             <li>
-                <NavLink href="onzediensten" @onclick="CloseMenu">
+                <NavLink href="onzediensten">
                     Onze diensten
                 </NavLink>
             </li>
 
             <li>
-                <NavLink href="werkwijze" @onclick="CloseMenu">
+                <NavLink href="werkwijze">
                     Werkwijze
                 </NavLink>
             </li>
 
             <li>
-                <NavLink href="contact" @onclick="CloseMenu">
+                <NavLink href="contact">
                     Contact
                 </NavLink>
             </li>
 
             <li class="cta-nav-item">
-                <NavLink href="aanmelden" @onclick="CloseMenu">
+                <NavLink href="aanmelden">
                     Aanmelden
                 </NavLink>
             </li>
@@ -77,6 +78,15 @@
         justify-content: space-between;
 
         position: relative;
+    }
+
+    /* Visually hidden checkbox — carries the open/closed state; never rendered visibly */
+    .nav-toggle-checkbox {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
     }
 
 
@@ -235,7 +245,9 @@
         }
 
 
-        ul.open {
+        /* Checkbox sibling selector: when checkbox is checked, show the ul.
+           Works because #nav-toggle (checkbox) is a preceding sibling of ul inside .nav-container */
+        .nav-toggle-checkbox:checked ~ ul {
             display: flex;
         }
 
@@ -257,22 +269,3 @@
     }
 
 </style>
-
-
-@code {
-
-    private bool _menuOpen;
-
-
-    private void ToggleMenu()
-    {
-        _menuOpen = !_menuOpen;
-    }
-
-
-    private void CloseMenu()
-    {
-        _menuOpen = false;
-    }
-
-}

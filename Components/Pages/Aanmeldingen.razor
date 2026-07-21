@@ -1,261 +1,40 @@
 ﻿@page "/admin/aanmeldingen"
 @rendermode InteractiveServer
-@inject IJSRuntime JS
 @using BlazorApp1.Models
 @using BlazorApp1.Services
 @inject AanmeldenService AanmeldenService
 
-
-<PageTitle>Aanmeldingen Beheer - Admin</PageTitle>
-
-<div class="page-container">
+<PageTitle>Aanmeldingen Beheer</PageTitle>
 
 <h1>Aanmeldingen Beheer</h1>
 
-<button class="btn-add" @onclick="AddNew">+ Nieuwe Aanmelding Toevoegen</button>
-
 @if (aanmeldingen == null)
 {
-    <p>Laden...</p>
+    <p>Loading...</p>
 }
 else
 {
-    <div class="table-wrapper">
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>Datum</th>
-                <th>Naam</th>
-                <th>Telefoon</th>
-                <th>Email</th>
-                <th>Cliënt</th>
-                <th>Relatie</th>
-                <th>Bericht</th>
-                <th>Acties</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in aanmeldingen)
-            {
-                <tr>
-                    <td>@item.AanmeldDatum.ToString("dd-MM-yyyy HH:mm")</td>
-                    <td>@item.Naam</td>
-                    <td>@item.Telefoon</td>
-                    <td>@item.Email</td>
-                    <td>@item.ClientNaam</td>
-                    <td>@item.Relatie</td>
-                    <td>@(item.Bericht?.Length > 60 ? item.Bericht.Substring(0, 60) + "..." : item.Bericht)</td>
-                    <td>
-                        <button class="btn-edit" @onclick="() => Edit(item)">✏️ Bewerken</button>
-                        <button class="btn-delete" @onclick="() => Delete(item)">🗑️ Verwijderen</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    </div>
+    <p>Found @aanmeldingen.Count records.</p>
+    <ul>
+        @foreach (var item in aanmeldingen)
+        {
+            <li>@item.Naam - @item.Email</li>
+        }
+    </ul>
 }
-
-<!-- Modal -->
-@if (showModal)
-{
-    <div class="modal-overlay">
-        <div class="modal-content">
-            <h3>@(isEditing ? "Aanmelding Bewerken" : "Nieuwe Aanmelding Toevoegen")</h3>
-
-            <label>Naam *</label>
-            <InputText @bind-Value="currentItem.Naam" class="form-input" />
-
-            <label>Telefoon *</label>
-            <InputText @bind-Value="currentItem.Telefoon" class="form-input" />
-
-            <label>Email *</label>
-            <InputText @bind-Value="currentItem.Email" class="form-input" />
-
-            <label>Cliënt Naam *</label>
-            <InputText @bind-Value="currentItem.ClientNaam" class="form-input" />
-
-            <label>Relatie</label>
-            <InputText @bind-Value="currentItem.Relatie" class="form-input" />
-
-            <label>Bericht</label>
-            <InputTextArea @bind-Value="currentItem.Bericht" class="form-input" rows="5" />
-
-            <div class="modal-buttons">
-                <button class="btn-save" @onclick="Save">Opslaan</button>
-                <button class="btn-cancel" @onclick="CloseModal">Annuleren</button>
-            </div>
-        </div>
-    </div>
-}
-
-</div>
 
 @code {
     private List<AanmeldenModel> aanmeldingen = new();
-    private AanmeldenModel currentItem = new();
-    private bool showModal = false;
-    private bool isEditing = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadData();
-    }
-
-    private async Task LoadData()
-    {
-        aanmeldingen = await AanmeldenService.GetAllAanmeldingenAsync();
-    }
-
-    private void AddNew()
-    {
-        currentItem = new AanmeldenModel();
-        isEditing = false;
-        showModal = true;
-    }
-
-    private void Edit(AanmeldenModel item)
-    {
-        currentItem = item;
-        isEditing = true;
-        showModal = true;
-    }
-
-    private async Task Save()
-    {
-        if (isEditing)
-            await AanmeldenService.UpdateAanmeldingAsync(currentItem);
-        else
-            await AanmeldenService.SaveAanmeldingAsync(currentItem);
-
-        CloseModal();
-        await LoadData();
-    }
-
-    private void CloseModal()
-    {
-        showModal = false;
-    }
-
-    private async Task Delete(AanmeldenModel item)
-    {
-        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Weet je zeker dat je deze aanmelding wilt verwijderen?");
-        if (confirmed)
+        try
         {
-            await AanmeldenService.DeleteAanmeldingAsync(item.Id);
-            await LoadData();
+            aanmeldingen = await AanmeldenService.GetAllAanmeldingenAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
         }
     }
 }
-<style>
-    .page-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 40px 24px;
-    }
-
-    .admin-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: white;
-    }
-
-        .admin-table th, .admin-table td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        .admin-table th {
-            background-color: #1E3A8A;
-            color: white;
-        }
-
-        .admin-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .admin-table tbody tr:hover {
-            background-color: #e8f0fe;
-        }
-
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        padding: 16px;
-        box-sizing: border-box;
-    }
-
-    .modal-content {
-        background: white;
-        border-radius: 16px;
-        padding: 36px 32px;
-        width: 100%;
-        max-width: 560px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
-    .modal-content h3 { color: #1E3A8A; margin-bottom: 8px; }
-
-    .modal-content label { font-weight: 600; color: #1E3A8A; margin-top: 4px; }
-
-    .form-input {
-        padding: 10px 14px;
-        border: 2px solid #E0E0E0;
-        border-radius: 8px;
-        font-size: 1rem;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .form-input:focus { border-color: #1E88E5; outline: none; box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1); }
-
-    .modal-buttons {
-        display: flex;
-        gap: 12px;
-        margin-top: 16px;
-        flex-wrap: wrap;
-    }
-
-    .btn-save, .btn-cancel, .btn-add, .btn-edit, .btn-delete {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.2s ease;
-    }
-
-    .btn-save { background-color: #1E88E5; color: white; flex: 1; }
-    .btn-save:hover { background-color: #0D47A1; }
-    .btn-cancel { background-color: #e0e0e0; color: #333; flex: 1; }
-    .btn-cancel:hover { background-color: #bdbdbd; }
-    .btn-add { background-color: #1E88E5; color: white; margin-bottom: 16px; }
-    .btn-add:hover { background-color: #0D47A1; }
-    .btn-edit { background-color: #E3F2FD; color: #1E3A8A; margin-right: 6px; }
-    .btn-delete { background-color: #fff0f0; color: #c62828; }
-
-    .table-wrapper {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    @@media (max-width: 768px) {
-        h1 { font-size: 1.5rem; }
-        .btn-add { width: 100%; text-align: center; }
-        .admin-table { white-space: nowrap; }
-        .modal-content { padding: 24px 18px; }
-    }
-</style>

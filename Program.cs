@@ -12,6 +12,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=CareHomeDB.db"));
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<AanmeldenService>();
 
 var app = builder.Build();

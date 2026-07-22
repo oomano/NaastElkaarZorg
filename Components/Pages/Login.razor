@@ -4,40 +4,15 @@
 @inject NavigationManager Navigation
 
 @code {
-    private LoginModel loginModel = new();
-    private bool isLoading = false;
     private bool showPassword = false;
     private string errorMessage = "";
 
-    private async Task HandleLogin()
+    protected override void OnInitialized()
     {
-        if (string.IsNullOrWhiteSpace(loginModel.Email) || string.IsNullOrWhiteSpace(loginModel.Password))
-        {
-            errorMessage = "Email and password are required.";
-            return;
-        }
-
-        isLoading = true;
-        errorMessage = "";
-
-        await Task.Delay(1000); // Simulate API call delay
-
-        if (loginModel.Email == "admin" && loginModel.Password == "123")
-        {
-            Navigation.NavigateTo("/app");
-        }
-        else
-        {
-            errorMessage = "Invalid email or password.";
-        }
-
-        isLoading = false;
-    }
-
-    private class LoginModel
-    {
-        public string Email { get; set; } = "";
-        public string Password { get; set; } = "";
+        var uri = new Uri(Navigation.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+        if (query.TryGetValue("error", out var val) && val == "1")
+            errorMessage = "Ongeldige gebruikersnaam of wachtwoord.";
     }
 }
 
@@ -163,22 +138,25 @@
     <h2>Welcome Back</h2>
     <p>Login to access your dashboard</p>
 
-    <div class="form-group">
-        <input type="email" class="form-control" placeholder="Email"
-               @bind="loginModel.Email" required>
-    </div>
+    <form method="post" action="/login-submit">
+        <div class="form-group">
+            <input type="text" name="username" class="form-control" placeholder="Gebruikersnaam" required>
+        </div>
 
-    <div class="form-group">
-        <input type="@(showPassword ? "text" : "password")" class="form-control" placeholder="Password"
-               @bind="loginModel.Password" required>
-    </div>
+        <div class="form-group">
+            <div class="password-container">
+                <input type="@(showPassword ? "text" : "password")" name="password" class="form-control" placeholder="Wachtwoord" required>
+                <span class="toggle-password" @onclick="() => showPassword = !showPassword">
+                    @(showPassword ? "🙈" : "👁️")
+                </span>
+            </div>
+        </div>
 
-    @if (!string.IsNullOrEmpty(errorMessage))
-    {
-        <p class="error-message">@errorMessage</p>
-    }
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <p class="error-message">@errorMessage</p>
+        }
 
-    <button class="btn-login" @onclick="HandleLogin" disabled="@isLoading">
-        @(isLoading ? "Logging in..." : "Login")
-    </button>
+        <button type="submit" class="btn-login">Login</button>
+    </form>
 </div>
